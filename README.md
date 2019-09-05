@@ -1,4 +1,6 @@
-This project is to run a simple example of JavaBIP, which is SpriralsDemo.java in the java-itest module.
+This project is cloned and modified from related projects of [Simon Bliudze](https://github.com/sbliudze "Named link title") to run a simple JavaBIP example.
+
+The example is SpriralsDemo.java in the java-itest module.
 In order to do that, we need:
 * The javabdd-1.0b2.jar
 * Build javabip-core: navigate to the javabip-core folder, open terminal and type: 
