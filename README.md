@@ -1,11 +1,11 @@
 This project is cloned and modified from related projects of [Simon Bliudze](https://github.com/sbliudze "Named link title") to run a simple JavaBIP example.
 
-The example is SpriralsDemo.java in the java-itest module.
+The example is _SpriralsDemo.java_ in the _java-itest_ module.
 In order to do that, we need:
-* The javabdd-1.0b2.jar
-* Build javabip-core: navigate to the javabip-core folder, open terminal and type: 
+* The _javabdd-1.0b2.jar_
+* Build ___javabip-core___: navigate to the _javabip-core_ folder, open terminal and type: 
 `mvn clean install`
-* Build javabip-engine: navigate to each subpackage of the javabip-engine module, copy the javabdd-1.0b2.jar into them and modify javabdd dependency in the .pom files as follow:
+* Build ___javabip-engine___: navigate to each subpackage of the _javabip-engine_ module, copy the _javabdd-1.0b2.jar_ into them and modify javabdd dependency in the .pom files as follow:
 	
  	 ```
 	 <dependency>
@@ -17,5 +17,5 @@ In order to do that, we need:
 	 </dependency>
 	 ```
 	Then, build project by typing mvn clean package
-* Build javabip-itest: navigate to the javabip-itest folder do the same things as above.
-* Put a large file into inputfolder1, run SpriralsDemo.java to watch how it works.
+* Build ___javabip-itest___: navigate to the _javabip-itest_ folder do the same things as above.
+* Put a large file into _inputfolder1_, run _SpriralsDemo.java_ to watch how it works.
