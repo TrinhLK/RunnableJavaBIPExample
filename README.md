@@ -19,3 +19,4 @@ In order to do that, we need:
 	Then, build project by typing mvn clean package
 * Build ___javabip-itest___: navigate to the _javabip-itest_ folder do the same things as above.
 * Put a large file into _inputfolder1_, run _SpriralsDemo.java_ to watch how it works.
+__Note 1__: It worked perfectly in Java 1.8 env. If you use later versions, you might reconfigure it.
