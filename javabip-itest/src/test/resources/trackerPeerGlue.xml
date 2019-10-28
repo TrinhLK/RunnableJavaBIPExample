@@ -59,10 +59,7 @@
             <effect id="speak" specType="org.bip.spec.Peer"/>
             <causes>
                 <option>
-                    <causes>
-                                        <!-- require enforces only cardinality=1 -->
-<!--                         <port id="broadcast" specType="org.bip.spec.Tracker"/> -->
-                    </causes>
+                    <causes/>
                 </option>
             </causes>
         </require>
@@ -70,10 +67,7 @@
             <effect id="listen" specType="org.bip.spec.Peer"/>
             <causes>
                 <option>
-                    <causes>
-                    <!-- require enforces only cardinality=1 -->
-<!--                         <port id="broadcast" specType="org.bip.spec.Tracker"/> -->
-                    </causes>
+                    <causes/>
                 </option>
             </causes>
         </require>
