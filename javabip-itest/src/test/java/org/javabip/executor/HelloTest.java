@@ -2,19 +2,18 @@ package org.javabip.executor;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-
 import org.javabip.api.BIPActor;
 import org.javabip.api.BIPEngine;
 import org.javabip.api.BIPGlue;
 import org.javabip.engine.factory.EngineFactory;
 import org.javabip.glue.GlueBuilder;
+import org.javabip.spec.hello.HelloAtom;
 import org.javabip.spec.hello.HelloBuilder;
-import org.javabip.spec.hello.HelloPackage;
+import org.javabip.spec.hello.HelloReceiver;
+import org.javabip.spec.hello.HelloSender;
 
 import akka.actor.ActorSystem;
 
@@ -51,19 +50,34 @@ public class HelloTest {
     	//BIPGlue bipGlue = createGlue("src/test/resources/trackerPeerGlue.xml");
     	BIPGlue bipGlue = new HelloBuilder().build();
     	
-    	try {
-			bipGlue.toXML(new FileOutputStream(new File("Tracker-Peer.xml")));
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//    	try {
+//			bipGlue.toXML(new FileOutputStream(new File("Tracker-Peer.xml")));
+//		} catch (FileNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
     	
     	BIPEngine engine = engineFactory.create("myEngine", bipGlue);
     	
-    	
-		HelloPackage hello1 = new HelloPackage("Nothing");
+    	//Component
+//		HelloAtom hello1 = new HelloAtom(1);
+//		HelloAtom hello2 = new HelloAtom(2);
+//		HelloAtom hello3 = new HelloAtom(3);
+//		
+//		//Connector
+//		final BIPActor executor1 = engine.register(hello1, "1", true);
+//		final BIPActor executor2 = engine.register(hello2, "2", true);
+//		final BIPActor executor3 = engine.register(hello3, "3", true);
+		
+		HelloSender helloSender = new HelloSender(0);
+		HelloReceiver helloReceiver1 = new HelloReceiver(1);
+		HelloReceiver helloReceiver2 = new HelloReceiver(2);
+		HelloReceiver helloReceiver3 = new HelloReceiver(3);
 
-		final BIPActor executor = engine.register(hello1, "1", true);
+		final BIPActor executor = engine.register(helloSender, "0", true);
+		final BIPActor executor1 = engine.register(helloReceiver1, "1", true);
+		final BIPActor executor2 = engine.register(helloReceiver2, "2", true);
+		final BIPActor executor3 = engine.register(helloReceiver3, "3", true);
 		
 		engine.specifyGlue(bipGlue);
 		engine.start();
@@ -71,7 +85,7 @@ public class HelloTest {
 		engine.execute();
 		
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -79,7 +93,7 @@ public class HelloTest {
 		engine.stop();
 		engineFactory.destroy(engine);
 		
-		assertTrue("Hello 1 has not made any transitions", hello1.noOfTransitions > 0);
+		//assertTrue("Hello 1 has not made any transitions", hello1.noOfTransitions > 0);
 		
     }
     
