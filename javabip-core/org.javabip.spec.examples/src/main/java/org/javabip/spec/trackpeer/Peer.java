@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 		@Port(name = "speak", type = PortType.enforceable),
 		@Port(name = "listen", type = PortType.enforceable),
 		@Port(name = "unregister", type = PortType.enforceable) })
-@ComponentType(initial = "zero", name = "org.bip.spec.Peer")
+@ComponentType(initial = "zero", name = "org.bip.spec.trackpeer.Peer")
 public class Peer {
 	Logger logger = LoggerFactory.getLogger(Peer.class);
 

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 @Ports({ @Port(name = "log", type = PortType.enforceable),
 		@Port(name = "broadcast", type = PortType.enforceable) })
-@ComponentType(initial = "zero", name = "org.bip.spec.Tracker")
+@ComponentType(initial = "zero", name = "org.bip.spec.trackpeer.Tracker")
 public class Tracker {
 
 	public int noOfTransitions = 0;
