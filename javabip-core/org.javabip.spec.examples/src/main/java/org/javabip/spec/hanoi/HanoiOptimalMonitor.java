@@ -55,6 +55,8 @@ public class HanoiOptimalMonitor {
     // LeftHanoiPeg is denoted as A.
     // MiddleHanoiPeg is denoted as B.
     // RightHanoiPeg is denoted as C.
+    
+    /*
     public void initialize() {
     	behaviourBuilder = new BehaviourBuilder(this);
 
@@ -114,8 +116,8 @@ public class HanoiOptimalMonitor {
     	
     	return behaviourBuilder;
     }
-    
-    /*
+    */
+    @ExecutableBehaviour
     public BehaviourBuilder initializeBehavior() throws NoSuchMethodException {
 
     	BehaviourBuilder behaviourBuilder = new BehaviourBuilder(this);
@@ -184,7 +186,7 @@ public class HanoiOptimalMonitor {
 
         return behaviourBuilder;
     }
-    */
+    
     
     public void moveAB() {
         numberOfMoves++;

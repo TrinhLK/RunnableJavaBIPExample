@@ -1,20 +1,28 @@
 package org.javabip.executor;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
 import org.javabip.api.BIPActor;
 import org.javabip.api.BIPEngine;
 import org.javabip.api.BIPGlue;
 import org.javabip.engine.factory.EngineFactory;
 import org.javabip.glue.GlueBuilder;
-import org.javabip.spec.hello.*;
+import org.javabip.spec.hello.HelloGlueBuilder;
+import org.javabip.spec.hello.HelloReceiver;
+import org.javabip.spec.hello.HelloReceiver1;
+import org.javabip.spec.hello.HelloReceiver2;
+import org.javabip.spec.hello.HelloReceiver3;
+import org.javabip.spec.hello.HelloSender;
+import org.javabip.spec.helloatom.HelloAtomGlueBuilder;
+import org.javabip.spec.helloatom.HelloAtomLoop;
+import org.javabip.spec.helloatom.LoopConnector;
+import org.javabip.spec.helloatom.Plus;
 
 import akka.actor.ActorSystem;
 
-public class HelloTest {
+public class HelloAtomTest {
 	private ActorSystem system;
     private EngineFactory engineFactory;
     
@@ -45,7 +53,7 @@ public class HelloTest {
     
     public void runningTrackerPeer() {
     	//BIPGlue bipGlue = createGlue("src/test/resources/trackerPeerGlue.xml");
-    	BIPGlue bipGlue = new HelloGlueBuilder().build();
+    	BIPGlue bipGlue = new HelloAtomGlueBuilder().build();
     	
 //    	try {
 //			bipGlue.toXML(new FileOutputStream(new File("Tracker-Peer.xml")));
@@ -65,18 +73,30 @@ public class HelloTest {
 //		final BIPActor executor1 = engine.register(hello1, "1", true);
 //		final BIPActor executor2 = engine.register(hello2, "2", true);
 //		final BIPActor executor3 = engine.register(hello3, "3", true);
-		
-		HelloSender helloSender = new HelloSender(0);
-		HelloReceiver helloReceiver11 = new HelloReceiver(11);
-		HelloReceiver helloReceiver1 = new HelloReceiver(1);
-		HelloReceiver helloReceiver2 = new HelloReceiver(2);
-		HelloReceiver helloReceiver3 = new HelloReceiver(3);
+//		LoopConnector lc = new LoopConnector(2);
+    	
+		HelloAtomLoop a1 = new HelloAtomLoop(1);
+		HelloAtomLoop a2 = new HelloAtomLoop(2);
+		HelloAtomLoop a3 = new HelloAtomLoop(3);
+		HelloAtomLoop a4 = new HelloAtomLoop(4);
+		HelloAtomLoop a5 = new HelloAtomLoop(5);
+		HelloAtomLoop a6 = new HelloAtomLoop(6);
+		HelloAtomLoop a7 = new HelloAtomLoop(7);
+		HelloAtomLoop a8 = new HelloAtomLoop(8);
+		HelloAtomLoop a9 = new HelloAtomLoop(9);
 
-		final BIPActor executor = engine.register(helloSender, "0", true);
-		final BIPActor executor11 = engine.register(helloReceiver11, "11", true);
-		final BIPActor executor1 = engine.register(helloReceiver1, "1", true);
-		final BIPActor executor2 = engine.register(helloReceiver2, "2", true);
-		final BIPActor executor3 = engine.register(helloReceiver3, "3", true);
+		Plus p12 = new Plus(a1, a2);
+		
+//		final BIPActor executorLC = engine.register(lc, "2", true);
+		final BIPActor executor1 = engine.register(a1, "1", true);
+		final BIPActor executor2 = engine.register(a1, "2", true);
+		final BIPActor executor3 = engine.register(a1, "3", true);
+		final BIPActor executor4 = engine.register(a1, "4", true);
+		final BIPActor executor5 = engine.register(a1, "5", true);
+		final BIPActor executor6 = engine.register(a1, "6", true);
+		final BIPActor executor7 = engine.register(a1, "7", true);
+		final BIPActor executor8 = engine.register(a1, "8", true);
+		final BIPActor exePlus12 = engine.register(p12, "12", true);
 		
 		engine.specifyGlue(bipGlue);
 		engine.start();
@@ -97,7 +117,7 @@ public class HelloTest {
     }
     
     public static void main (String[] args) {
-    	HelloTest testTP = new HelloTest();
+    	HelloAtomTest testTP = new HelloAtomTest();
 		testTP.initialize();
 		testTP.runningTrackerPeer();
 		testTP.cleanup();

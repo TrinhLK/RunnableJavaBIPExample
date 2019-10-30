@@ -7,6 +7,7 @@ import org.javabip.annotations.Port;
 import org.javabip.annotations.Ports;
 import org.javabip.annotations.Transition;
 import org.javabip.api.PortType;
+import org.javabip.api.DataOut.AccessType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,8 +16,8 @@ import org.slf4j.LoggerFactory;
 public class HelloReceiver {
 
 	Logger logger = LoggerFactory.getLogger(HelloReceiver.class);
-	private int sendId;
-	private int receiveId;
+	protected int sendId;
+	protected int receiveId;
 	
 	public HelloReceiver(int id) {
 		this.sendId = -1;
@@ -30,11 +31,4 @@ public class HelloReceiver {
 			System.out.println("I'm " + receiveId + ", Hello World received from " + sendId);
 	}
 	
-	@Guard(name= "canReceive" )
-	public boolean canReceive() {
-		// System.out.println("Peer " + peerId + " registered with " + trackerId
-		// + ", interacting with " + id + ": "
-		// + (trackerId >= 0 && id == trackerId));
-		return (receiveId == 1 || receiveId == 3);
-	}
 }

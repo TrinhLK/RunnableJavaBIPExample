@@ -1,4 +1,4 @@
-package org.javabip.spec.hello;
+package org.javabip.spec.helloatom;
 
 import org.javabip.annotations.ComponentType;
 import org.javabip.annotations.Port;
