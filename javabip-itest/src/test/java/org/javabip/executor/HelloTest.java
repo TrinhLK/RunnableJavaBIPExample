@@ -67,13 +67,11 @@ public class HelloTest {
 //		final BIPActor executor3 = engine.register(hello3, "3", true);
 		
 		HelloSender helloSender = new HelloSender(0);
-		HelloMiddle helloMiddle = new HelloMiddle(11);
 		HelloReceiver helloReceiver1 = new HelloReceiver(1);
 		HelloReceiver helloReceiver2 = new HelloReceiver(2);
 		HelloReceiver helloReceiver3 = new HelloReceiver(3);
 
 		final BIPActor executor = engine.register(helloSender, "0", true);
-		final BIPActor executor11 = engine.register(helloMiddle, "11", true);
 		final BIPActor executor1 = engine.register(helloReceiver1, "1", true);
 		final BIPActor executor2 = engine.register(helloReceiver2, "2", true);
 		final BIPActor executor3 = engine.register(helloReceiver3, "3", true);

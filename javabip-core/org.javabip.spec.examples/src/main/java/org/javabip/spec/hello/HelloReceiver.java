@@ -14,20 +14,19 @@ import org.slf4j.LoggerFactory;
 public class HelloReceiver {
 
 	Logger logger = LoggerFactory.getLogger(HelloReceiver.class);
-	private int data;
+	private int sendId;
 	private int receiveId;
 	
 	public HelloReceiver(int id) {
-		this.data = -1;
+		this.sendId = -1;
 		receiveId = id;
 	}
 	
 	@Transition(name = "r", source = "START", target = "END")
-	public void receiving(@Data(name = "transferedData") Integer id) {
-		this.data = id;
-		System.out.println("--- " + id);
+	public void receiving(@Data(name = "sendId") Integer id) {
+		this.sendId = id;
 		if (receiveId == 1 || receiveId == 3)
-			System.out.println("I'm " + receiveId + ", Hello World received from " + data);
+			System.out.println("I'm " + receiveId + ", Hello World received from " + sendId);
 	}
 	
 }

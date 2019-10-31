@@ -13,13 +13,10 @@ public class HelloGlueBuilder extends GlueBuilder{
 //		port(HelloReceiver.class, "r").requires(HelloSender.class, "s");
 		
 		//One2One
-		port(HelloSender.class, "s").accepts(HelloMiddle.class, "t");
-		port(HelloMiddle.class, "t").requires(HelloSender.class, "s");
-		port(HelloMiddle.class, "t").accepts(HelloReceiver.class, "r");
-		port(HelloReceiver.class, "r").requires(HelloMiddle.class, "t");
+		port(HelloSender.class, "s").accepts(HelloReceiver.class, "r");
+		port(HelloReceiver.class, "r").requires(HelloSender.class, "s");
 		//One to One
-		data(HelloSender.class, "sendId").to(HelloMiddle.class, "sendId");
-		data(HelloMiddle.class, "transferedData").to(HelloReceiver.class, "transferedData");
+		data(HelloSender.class, "sendId").to(HelloReceiver.class, "sendId");
 	}
 
 }
