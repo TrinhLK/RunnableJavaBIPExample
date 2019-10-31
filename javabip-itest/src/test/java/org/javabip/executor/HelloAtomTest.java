@@ -3,6 +3,7 @@ package org.javabip.executor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import org.javabip.api.BIPActor;
 import org.javabip.api.BIPEngine;
@@ -64,11 +65,11 @@ public class HelloAtomTest {
 //		HelloAtom hello2 = new HelloAtom(2);
 //		HelloAtom hello3 = new HelloAtom(3);
 //		
-//		//Connector
 //		final BIPActor executor1 = engine.register(hello1, "1", true);
 //		final BIPActor executor2 = engine.register(hello2, "2", true);
 //		final BIPActor executor3 = engine.register(hello3, "3", true);
-//		LoopConnector lc = new LoopConnector(2);
+    	ArrayList<HelloAtomLoop> test = new ArrayList<HelloAtomLoop>();
+		
     	
 		HelloAtomLoop a1 = new HelloAtomLoop(1);
 		HelloAtomLoop a2 = new HelloAtomLoop(2);
@@ -79,8 +80,10 @@ public class HelloAtomTest {
 		HelloAtomLoop a7 = new HelloAtomLoop(7);
 		HelloAtomLoop a8 = new HelloAtomLoop(8);
 		HelloAtomLoop a9 = new HelloAtomLoop(9);
-
-		Plus p12 = new Plus(a1, a2);
+		test.add(a1); test.add(a2); test.add(a3); test.add(a4); test.add(a5); test.add(a6); 
+		test.add(a7); test.add(a8); test.add(a9); 
+		//Plus p12 = new Plus(a1, a2);
+		LoopConnector lc = new LoopConnector(test);
 		
 //		final BIPActor executorLC = engine.register(lc, "2", true);
 		final BIPActor executor1 = engine.register(a1, "1", true);
@@ -91,7 +94,7 @@ public class HelloAtomTest {
 		final BIPActor executor6 = engine.register(a1, "6", true);
 		final BIPActor executor7 = engine.register(a1, "7", true);
 		final BIPActor executor8 = engine.register(a1, "8", true);
-		final BIPActor exePlus12 = engine.register(p12, "12", true);
+		final BIPActor exeLC = engine.register(lc, "lc", true);
 		
 		engine.specifyGlue(bipGlue);
 		engine.start();

@@ -11,26 +11,23 @@ import org.javabip.api.DataOut.AccessType;
 @Ports({ @Port(name = "p", type = PortType.enforceable),
 		@Port(name = "init", type = PortType.enforceable)
 })
-@ComponentType(initial = "start", name = "org.bip.spec.hello.HelloAtomLoop")
+@ComponentType(initial = "LOOP", name = "org.bip.spec.hello.HelloAtomLoop")
 public class HelloAtomLoop {
 
 	private int helloId;
-	private int active = 1;
+	private int active;
 	//public int noOfActive = 0;
 	
 	public HelloAtomLoop(int id) {
 		// TODO Auto-generated constructor stub
 		helloId = id;
-	}
-	
-	@Transition(name = "init", source = "start", target = "LOOP")
-	public void setInit() {
 		active = 1;
 	}
 	
 	@Transition(name = "p", source = "LOOP", target = "LOOP")
 	public void activate() {
 		System.out.println("I'm " + helloId + ", active " + active);
+		active++;
 		//noOfActive++;
 		//active = noOfActive;
 	}
