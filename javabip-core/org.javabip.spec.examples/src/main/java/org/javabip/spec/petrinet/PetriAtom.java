@@ -14,10 +14,10 @@ public class PetriAtom {
 
 	private int petriId;
 	public static boolean resource;
+	public static int curId = 0;
 	
     public PetriAtom(int id) {
     	petriId = id;
-    	resource = false;
     }
 
     @ExecutableBehaviour
@@ -39,22 +39,24 @@ public class PetriAtom {
 		
 		//Transitions
 		behaviourBuilder.addTransitionAndStates("get_res", "GET", "USE", "", PetriAtom.class.getMethod("getRS"));
-		behaviourBuilder.addTransitionAndStates("free_res", "USE", "SYNC", "", PetriAtom.class.getMethod("freeRS"));
+		behaviourBuilder.addTransitionAndStates("free_res", "USE", "GET", "", PetriAtom.class.getMethod("freeRS"));
 		  
 		return behaviourBuilder;
     }
 
     public void getRS() {
-    	if (resource == false) {
-    		System.out.println(petriId + ": get resource");
-        	resource = true;
+    	if (resource == false && curId == 0) {
+    		resource = true;
+        	curId = petriId;
+    		System.out.println(petriId + ": get resource\t" + "curId = " + curId + "\t resource taken = " + resource);
     	}
     }
     
     public void freeRS() {
-    	if (resource == true) {
+    	if (resource == true && curId == petriId) {
     		System.out.println(petriId + ": free resource");
         	resource = false;
+        	curId = 0;
     	}
     }
     

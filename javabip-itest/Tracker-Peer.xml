@@ -1,49 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <glue>
-    <accepts>
-        <accept>
-            <effect id="register" specType="org.bip.spec.trackpeer.Peer"/>
-            <causes>
-                <port id="log" specType="org.bip.spec.trackpeer.Tracker"/>
-            </causes>
-        </accept>
-        <accept>
-            <effect id="speak" specType="org.bip.spec.trackpeer.Peer"/>
-            <causes>
-                <port id="broadcast" specType="org.bip.spec.trackpeer.Tracker"/>
-                <port id="listen" specType="org.bip.spec.trackpeer.Peer"/>
-            </causes>
-        </accept>
-        <accept>
-            <effect id="listen" specType="org.bip.spec.trackpeer.Peer"/>
-            <causes>
-                <port id="broadcast" specType="org.bip.spec.trackpeer.Tracker"/>
-                <port id="speak" specType="org.bip.spec.trackpeer.Peer"/>
-                <port id="listen" specType="org.bip.spec.trackpeer.Peer"/>
-            </causes>
-        </accept>
-        <accept>
-            <effect id="unregister" specType="org.bip.spec.trackpeer.Peer"/>
-            <causes>
-                <port id="log" specType="org.bip.spec.trackpeer.Tracker"/>
-            </causes>
-        </accept>
-        <accept>
-            <effect id="log" specType="org.bip.spec.trackpeer.Tracker"/>
-            <causes>
-                <port id="register" specType="org.bip.spec.trackpeer.Peer"/>
-                <port id="unregister" specType="org.bip.spec.trackpeer.Peer"/>
-            </causes>
-        </accept>
-        <accept>
-            <effect id="broadcast" specType="org.bip.spec.trackpeer.Tracker"/>
-            <causes>
-                <port id="speak" specType="org.bip.spec.trackpeer.Peer"/>
-                <port id="listen" specType="org.bip.spec.trackpeer.Peer"/>
-                <port id="broadcast" specType="org.bip.spec.trackpeer.Tracker"/>
-            </causes>
-        </accept>
-    </accepts>
+    <accepts/>
     <requires>
         <require>
             <effect id="register" specType="org.bip.spec.trackpeer.Peer"/>
@@ -59,7 +16,9 @@
             <effect id="speak" specType="org.bip.spec.trackpeer.Peer"/>
             <causes>
                 <option>
-                    <causes/>
+                    <causes>
+                        <port id="broadcast" specType="org.bip.spec.trackpeer.Tracker"/>
+                    </causes>
                 </option>
             </causes>
         </require>
@@ -67,7 +26,9 @@
             <effect id="listen" specType="org.bip.spec.trackpeer.Peer"/>
             <causes>
                 <option>
-                    <causes/>
+                    <causes>
+                        <port id="broadcast" specType="org.bip.spec.trackpeer.Tracker"/>
+                    </causes>
                 </option>
             </causes>
         </require>
