@@ -13,7 +13,7 @@ public class AnnoPetriGlueBuilder extends GlueBuilder{
 		port(Resource.class, "free_res").requires(AnnoPetri.class, "unrequest");
 		//port(SynchronizerResource.class, "sync").requires(AnnoPetri.class, "unrequest", Resource.class, "free_res");
 		port(Resource.class, "free_res").requires(SynchronizerResource.class, "sync");
-		port(AnnoPetri.class, "unrequest").requires(SynchronizerResource.class, "sync");
+		port(SynchronizerResource.class, "sync").requires(Resource.class, "free_res");
 		
 		port(AnnoPetri.class, "request").accepts(Resource.class, "get_res");
 		port(AnnoPetri.class, "unrequest").accepts(Resource.class, "free_res");

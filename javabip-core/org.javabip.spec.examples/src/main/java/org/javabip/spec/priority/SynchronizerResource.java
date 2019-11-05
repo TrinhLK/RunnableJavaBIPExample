@@ -22,24 +22,25 @@ public class SynchronizerResource {
 		listAtom = _listAtom;
 		resourceAvailable = -1;
 	}
-	
+
 	@Transition(name = "sync", source = "zero", target = "zero", guard = "available")
 	public void synchronizing() {
-		String rs = "";
-		for (AnnoPetri a :  listAtom) {
-			rs += a.atomId() + " ";
-		}
-		System.out.println("Check resource: " + resourceAvailable + "\t" + rs + ": synchronize");
+//		String rs = "";
+//		for (AnnoPetri a :  listAtom) {
+//			rs += a.atomId() + " ";
+//		}
+//		System.out.println("Check resource: " + resourceAvailable + "\t" + rs + ": synchronize");
+		System.out.println("test");
 	}
 	
 	@Guard(name = "available")
 	public boolean canInteract(@Data(name = "resourceAvailable") int ra) {
-		// System.out.println("Peer " + peerId + " registered with " + trackerId
-		// + ", interacting with " + id + ": "
-		// + (trackerId >= 0 && id == trackerId));
-		this.resourceAvailable = ra;
-		//System.out.println("Check guard: " + ra);
 		
-		return (resourceAvailable == 1);
+		this.resourceAvailable = ra;
+		if (resourceAvailable == 1) {
+			System.out.println("Resource is available.");
+			return true;
+		}
+		return false;
 	}
 }
