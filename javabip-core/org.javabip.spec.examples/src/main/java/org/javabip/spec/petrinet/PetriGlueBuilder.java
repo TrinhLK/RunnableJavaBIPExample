@@ -13,13 +13,16 @@ public class PetriGlueBuilder extends GlueBuilder {
 		
 		//port(PetriAtom.class, "free_res").requires(PetriAtom.class, "get_res");
 		//port(PetriAtom.class, "free_res").accepts(PetriAtom.class, "get_res", SyncPetri.class, "sync");
-		//port(SyncPetri.class, "sync").requires(PetriAtom.class, "get_res");
+		port(PetriAtom.class,"free_res").requires(SyncPetri.class, "sync");
+		port(PetriAtom.class,"free_res").accepts(SyncPetri.class, "sync");
+		
 		port(SyncPetri.class, "sync").requires(PetriAtom.class, "free_res");
+		port(SyncPetri.class, "sync").accepts(PetriAtom.class, "free_res");
 		
-		
-//		port(PetriAtom.class, "get_res").accepts(SyncPetri.class, "sync");
-//		port(PetriAtom.class, "free_res").accepts(SyncPetri.class, "sync");
-//		port(SyncPetri.class, "sync").accepts(PetriAtom.class, "get_res", "free_res");
+		//port(AnnoSync.class, "sync").requires(AnnoPetri.class, "free_res");
+		//port(PetriAtom.class, "get_res").accepts(PetriAtom.class, "free_res");
+		//port(PetriAtom.class, "free_res").accepts(SyncPetri.class, "sync");
+
 		
 		//data(PetriAtom.class, "resource").to(SyncPetri.class,"resource");
 	}

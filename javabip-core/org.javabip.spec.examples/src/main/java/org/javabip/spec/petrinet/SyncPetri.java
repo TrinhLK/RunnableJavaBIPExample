@@ -34,7 +34,7 @@ public class SyncPetri {
 		behaviourBuilder.setInitialState("SYNC");
 		
 		//Transitions
-		behaviourBuilder.addTransitionAndStates("sync", "SYNC", "SYNC", "resourceAvailable", SyncPetri.class.getMethod("synch"));
+		behaviourBuilder.addTransitionAndStates("sync", "SYNC", "SYNC", "", SyncPetri.class.getMethod("synch"));
 		  
 		return behaviourBuilder;
     }

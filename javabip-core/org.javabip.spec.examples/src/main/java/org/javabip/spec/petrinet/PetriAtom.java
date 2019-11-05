@@ -2,6 +2,7 @@ package org.javabip.spec.petrinet;
 
 import org.javabip.annotations.Data;
 import org.javabip.annotations.ExecutableBehaviour;
+import org.javabip.annotations.Guard;
 import org.javabip.api.PortType;
 import org.javabip.api.DataOut.AccessType;
 import org.javabip.executor.BehaviourBuilder;
@@ -69,4 +70,8 @@ public class PetriAtom {
 	public boolean resource() {
 		return resource;
 	}
+    
+    public boolean resourceAvailable() {
+    	return (resource == true);
+    }
 }
