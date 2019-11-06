@@ -6,7 +6,11 @@ import org.javabip.api.BIPActor;
 import org.javabip.api.BIPEngine;
 import org.javabip.api.BIPGlue;
 import org.javabip.engine.factory.EngineFactory;
-import org.javabip.spec.priority.*;
+import org.javabip.spec.petrinet.AnnoPetri;
+import org.javabip.spec.petrinet.AnnoPetriGlueBuilder;
+import org.javabip.spec.petrinet.Resource;
+import org.javabip.spec.petrinet.SynchronizerResource;
+
 
 import akka.actor.ActorSystem;
 
@@ -28,22 +32,22 @@ public class NewPetriNetTest {
 
     	BIPEngine engine = engineFactory.create("myEngine", bipGlue);
 
-		int size = 3;
-
-		//HanoiOptimalMonitor hanoiMonitor;
 		try {
 			AnnoPetri petriAtom1 = new AnnoPetri(1);
 			AnnoPetri petriAtom2 = new AnnoPetri(2);
+			AnnoPetri petriAtom3 = new AnnoPetri(3);
 			Resource res = new Resource();
 			
 			ArrayList<AnnoPetri> listAnno = new ArrayList<AnnoPetri>();
-			listAnno.add(petriAtom1); listAnno.add(petriAtom2);
+			listAnno.add(petriAtom1); listAnno.add(petriAtom2); listAnno.add(petriAtom3);
 			SynchronizerResource sync = new SynchronizerResource(listAnno);
 			
-			BIPActor actor1 = engine.register(petriAtom1, "atom1", true);
 			BIPActor actor2 = engine.register(petriAtom2, "atom2", true);
-			BIPActor actor3 = engine.register(res, "resource", true);
-			BIPActor actor4 = engine.register(sync, "sync", true);
+			BIPActor actor1 = engine.register(petriAtom1, "atom1", true);
+			
+			BIPActor actor3 = engine.register(petriAtom3, "atom3", true);
+			BIPActor actorRes = engine.register(res, "resource", true);
+			BIPActor actorSync = engine.register(sync, "sync", true);
 			
 			engine.specifyGlue(bipGlue);
 			engine.start();
