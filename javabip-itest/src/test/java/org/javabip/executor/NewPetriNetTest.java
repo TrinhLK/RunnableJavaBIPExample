@@ -6,10 +6,10 @@ import org.javabip.api.BIPActor;
 import org.javabip.api.BIPEngine;
 import org.javabip.api.BIPGlue;
 import org.javabip.engine.factory.EngineFactory;
-import org.javabip.spec.petrinet.AnnoPetri;
-import org.javabip.spec.petrinet.AnnoPetriGlueBuilder;
-import org.javabip.spec.petrinet.Resource;
-import org.javabip.spec.petrinet.SynchronizerResource;
+import org.javabip.spec.priority.AnnoPetri;
+import org.javabip.spec.priority.AnnoPetriGlueBuilder;
+import org.javabip.spec.priority.Resource;
+import org.javabip.spec.priority.SynchronizerResource;
 
 
 import akka.actor.ActorSystem;
