@@ -75,6 +75,15 @@
 			<artifactId>org.javabip.executor</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.bip</groupId>
+			<artifactId>org.bip.lsr</artifactId>
+			<version>1.0</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/org.bip.lsr-0.1.0-SNAPSHOT.jar</systemPath>
+
+		</dependency>
+
 	</dependencies>
 
 	<build>
