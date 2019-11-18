@@ -16,6 +16,7 @@ public class Resource {
 		// TODO Auto-generated constructor stub
 		this.resourceId = _id;
 		this.status = true;
+		System.out.println("Create Resource: " + resourceId);
 	}
 	
 	public int getId() {
@@ -24,5 +25,11 @@ public class Resource {
 	
 	public boolean resourceAvailable() {
 		return status;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "[" + resourceId + "\t" + status + "]";
 	}
 }
