@@ -19,6 +19,7 @@ public class NewServer{
 
 	private ArrayList<Resource> listResource;
 	private int nServerId;
+	private boolean canBeAccessed;
 	
 	public NewServer(int _id) {
 		// TODO Auto-generated constructor stub
@@ -35,8 +36,14 @@ public class NewServer{
 	}
 	
 	@Transition(name = "run", source = "0", target = "0")
-	public void running() {
+	public void running(@Data(name = "resourceIdToUse")Integer id) {
 		System.out.println("Server{" + nServerId + "} is running....");
+		if (getResourceWithId(id) != null) {
+			System.out.println("Server {" + nServerId + "}: Resource{" + id + "} can be accessed");
+			canBeAccessed = true;
+		}else {
+			canBeAccessed = false;
+		}
 	}
 	
 	@Transition(name = "announce", source = "1", target = "0")
@@ -49,8 +56,21 @@ public class NewServer{
 		return nServerId;
 	}
 	
+	@Data (name = "accessed", accessTypePort = AccessType.any)
+	public boolean isAccessed() {
+		return canBeAccessed;
+	}
+	
 	@Guard(name = "checkResource")
 	public boolean getResource(@Data(name = "resourceId") Integer rId) {
 		return (rId > 0);
+	}
+	public Resource getResourceWithId(int id) {
+		for (Resource cur : listResource) {
+			if (cur.getId() == id) {
+				return cur;
+			}
+		}
+		return null;
 	}
 }

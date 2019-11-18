@@ -11,7 +11,8 @@ import org.javabip.annotations.Transition;
 import org.javabip.api.PortType;
 import org.javabip.api.DataOut.AccessType;
 
-@Ports({ @Port(name = "run", type = PortType.enforceable),
+@Ports({ @Port(name = "start", type = PortType.enforceable),
+	@Port(name = "provide", type = PortType.enforceable),
 	@Port(name = "move", type = PortType.enforceable),
 	@Port(name = "close", type = PortType.enforceable)})
 @ComponentType(initial = "0", name = "org.bip.spec.clientserver.Server")
@@ -41,7 +42,12 @@ public class Server {
 		}
 	}
 	
-	@Transition(name = "run", source = "0", target = "0")
+	@Transition(name = "start", source = "0", target = "1", guard = "canActive")
+	public void starting() {
+		System.out.println("Server {" + serverId + "} is starting....");
+	}
+	
+	@Transition(name = "provide", source = "1", target = "1", guard = "canActive")
 	public void running(@Data(name = "resourceIdToUse")Integer id, @Data(name = "takingRs") Boolean takingRs) {
 		System.out.println("Server {" + serverId + "} is running....");
 		resourceId = id;
@@ -54,7 +60,7 @@ public class Server {
 		
 	}
 	
-	@Transition(name = "move", source = "0", target = "1", guard = "canMove")
+	@Transition(name = "move", source = "1", target = "2", guard = "canMove")
 	public void moving() {
 		//Resource res = getResourceWithId(rId);
 		//if (getResourceWithId(rId) != null && takingRs == false) {
@@ -62,11 +68,11 @@ public class Server {
 		//}
 	}
 	
-	@Transition(name = "close", source = "1", target = "0")
+	@Transition(name = "close", source = "2", target = "0", guard = "canActive")
 	public void closing() {
 		System.out.println("Server {" + serverId + "}: Closed");
 		listResource = null;
-
+		serverId = -1;
 	}
 	
 	@Guard(name = "canMove")
@@ -76,6 +82,11 @@ public class Server {
 			return true;
 		}
 		return false;
+	}
+	
+	@Guard(name = "canActive")
+	public boolean canActive() {
+		return (serverId >= 0);
 	}
 	
 //	@Guard(name = "resourceIsExist")

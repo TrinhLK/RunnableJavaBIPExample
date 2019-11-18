@@ -17,7 +17,7 @@ import org.javabip.api.PortType;
 @Ports({ @Port(name = "request", type = PortType.enforceable),
 	@Port(name = "download", type = PortType.enforceable),
 	@Port(name = "releash", type = PortType.enforceable)})
-@ComponentType(initial = "zero", name = "org.bip.spec.clientserver.Client")
+@ComponentType(initial = "0", name = "org.bip.spec.clientserver.Client")
 public class Client {
 
 	Logger logger = LoggerFactory.getLogger(Peer.class);
@@ -46,19 +46,24 @@ public class Client {
 		//listResource = new ArrayList<Integer>();
 	}
 	
-	@Transition(name = "request", source = "zero", target = "one")
-	public void requesting(@Data(name = "serverId") Integer sid) {
+	@Transition(name = "request", source = "0", target = "1")
+	public void requesting(@Data(name = "serverId") Integer sid, @Data(name = "newServer") Integer nsid) {
 		//this.myRs = resource;
-		this.serverId = sid;
+		//this.serverId = sid;
+		if (sid >= 0) {
+			this.serverId = sid;
+		}else {
+			this.serverId = nsid;
+		}
 		System.out.println("Client {" + clientId + "}: is REQUESTING {" + serverId + "} to access resource {" + resourceId + "}.");
 	}
 	
-	@Transition(name = "download", source = "one", target = "one", guard = "canAccess")
+	@Transition(name = "download", source = "1", target = "1", guard = "canAccess")
 	public void downloading() {
-		System.out.println("Client {" + clientId + "}: is DOWNLOADING resource {" + resourceId + "}");
+		System.out.println("Client {" + clientId + "}: is DOWNLOADING resource {" + resourceId + "} from Server{" + serverId + "}");
 		takingResource = true;
 	}
-	@Transition(name = "releash", source = "one", target = "zero", guard = "canReleash")
+	@Transition(name = "releash", source = "1", target = "0", guard = "canReleash")
 	public void releashing() {
 		System.out.println("Client {" + clientId + "}: is RELEASING resource {" + resourceId + "}.\nLogged out");
 		this.takingResource = false;
@@ -87,6 +92,7 @@ public class Client {
 		return false;
 	}
 	
+
 
 //	@Guard(name = "canAccess")
 //	public boolean canAccess(@Data(name = "serverId") Integer sid, @Data(name = "listResource") ArrayList<Resource> listResource) {
