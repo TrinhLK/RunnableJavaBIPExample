@@ -4,8 +4,8 @@ import org.javabip.api.BIPActor;
 import org.javabip.api.BIPEngine;
 import org.javabip.api.BIPGlue;
 import org.javabip.engine.factory.EngineFactory;
-import org.javabip.spec.clientserver.ClientServerGlueBuilder;
-import org.javabip.spec.clientserver.*;
+import org.javabip.spec.newclientserver.ClientServerGlueBuilder;
+import org.javabip.spec.newclientserver.*;
 
 import akka.actor.ActorSystem;
 
@@ -30,13 +30,16 @@ public class ClientServerTest {
 		try {
 			Resource rs = new Resource(1);
 			Client client = new Client(11, 1);
-			Server server = new Server(21, rs);
-			NewServer nServer = new NewServer(22);
+			Server serverA = new ServerA(21, rs);
+			Server serverB = new ServerA(22);
+			ClientServerMonitor monitor = new ClientServerMonitor();
+			//NewServer nServer = new NewServer(22);
 			
 					
 			BIPActor actor1 = engine.register(client, "client", true);
-			BIPActor actor2 = engine.register(server, "server", true);
-			BIPActor actor3 = engine.register(nServer, "nServer", true);
+			BIPActor actor2 = engine.register(serverA, "serverA", true);
+			BIPActor actor3 = engine.register(serverB, "ServerB", true);
+			BIPActor actor4 = engine.register(serverB, "monitor", true);
 			
 			engine.specifyGlue(bipGlue);
 			engine.start();
