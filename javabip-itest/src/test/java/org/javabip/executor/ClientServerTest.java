@@ -32,7 +32,7 @@ public class ClientServerTest {
 			Client client = new Client(11, 1);
 			Server serverA = new ServerA(21, rs);
 			Server serverB = new ServerA(22);
-			ClientServerMonitor monitor = new ClientServerMonitor();
+			Monitor monitor = new Monitor();
 			//NewServer nServer = new NewServer(22);
 			
 					

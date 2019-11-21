@@ -14,13 +14,13 @@ import org.slf4j.LoggerFactory;
 	@Port(name = "execute", type = PortType.enforceable),
 	@Port(name = "finish", type = PortType.enforceable)})
 @ComponentType(initial = "0", name = "org.bip.spec.newclientserver.ClientServerMonitor")
-public class ClientServerMonitor {
+public class Monitor {
 
-	Logger logger = LoggerFactory.getLogger(ClientServerMonitor.class);
+	Logger logger = LoggerFactory.getLogger(Monitor.class);
 	
 	ArrayList<Object> listRequest;
 	
-	public ClientServerMonitor() {
+	public Monitor() {
 		// TODO Auto-generated constructor stub
 	}
 	
