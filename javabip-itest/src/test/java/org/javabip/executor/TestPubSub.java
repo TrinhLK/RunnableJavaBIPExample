@@ -33,7 +33,7 @@ public class TestPubSub implements Runnable{
             
             ArrayList<String> topics = new ArrayList<String>();
     		ArrayList<String> msgs = new ArrayList<String>();
-    		topics.add("eplf");
+    		topics.add("momo");
     		topics.add("concurrence");
     		msgs.add("bonjour");
     		msgs.add("hello");

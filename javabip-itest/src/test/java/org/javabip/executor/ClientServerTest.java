@@ -4,7 +4,6 @@ import org.javabip.api.BIPActor;
 import org.javabip.api.BIPEngine;
 import org.javabip.api.BIPGlue;
 import org.javabip.engine.factory.EngineFactory;
-import org.javabip.spec.newclientserver.ClientServerGlueBuilder;
 import org.javabip.spec.newclientserver.*;
 
 import akka.actor.ActorSystem;
@@ -28,18 +27,18 @@ public class ClientServerTest {
 
 		//HanoiOptimalMonitor hanoiMonitor;
 		try {
-			Resource rs = new Resource(1);
-			Client client = new Client(11, 1);
-			Server serverA = new ServerA(21, rs);
-			Server serverB = new ServerA(22);
-			Monitor monitor = new Monitor();
-			//NewServer nServer = new NewServer(22);
-			
-					
-			BIPActor actor1 = engine.register(client, "client", true);
-			BIPActor actor2 = engine.register(serverA, "serverA", true);
-			BIPActor actor3 = engine.register(serverB, "ServerB", true);
-			BIPActor actor4 = engine.register(serverB, "monitor", true);
+//			Resource rs = new Resource(1);
+//			Client client = new Client(11, 1);
+//			Server serverA = new ServerA(21, rs);
+//			Server serverB = new ServerA(22);
+//			Monitor monitor = new Monitor();
+//			//NewServer nServer = new NewServer(22);
+//			
+//					
+//			BIPActor actor1 = engine.register(client, "client", true);
+//			BIPActor actor2 = engine.register(serverA, "serverA", true);
+//			BIPActor actor3 = engine.register(serverB, "ServerB", true);
+//			BIPActor actor4 = engine.register(monitor, "monitor", true);
 			
 			engine.specifyGlue(bipGlue);
 			engine.start();
