@@ -1,67 +1,67 @@
 package org.javabip.spec.newclientserver;
 
-import java.util.ArrayList;
 
 import org.javabip.annotations.ComponentType;
 import org.javabip.annotations.Data;
+import org.javabip.annotations.Guard;
 import org.javabip.annotations.Port;
 import org.javabip.annotations.Ports;
 import org.javabip.annotations.Transition;
-import org.javabip.api.BIPActor;
-import org.javabip.api.BIPActorAware;
 import org.javabip.api.DataOut.AccessType;
 import org.javabip.api.PortType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.javabip.api.BIPActor;
-import org.javabip.api.BIPActorAware;
 
-@Ports({ @Port(name = "connect", type = PortType.spontaneous), 
-	 @Port(name = "download", type = PortType.spontaneous),
-	 @Port(name = "logout", type = PortType.spontaneous) })
+
+@Ports({@Port(name = "download", type = PortType.enforceable),
+	@Port(name = "releash", type = PortType.enforceable)})
 @ComponentType(initial = "0", name = "org.bip.spec.newclientserver.Client")
 
-public class Client implements BIPActorAware {
+public class Client {
 
 	Logger logger = LoggerFactory.getLogger(Client.class);
-	private BIPActor bipActor;
-	private int id;
-	private ArrayList<Server> servers;
+	private int clientId;
+	private int serverId;
 	private int resourceId;
 	
-	public Client(int _id, int _res) {
+	public Client(int _cId) {
 		// TODO Auto-generated constructor stub
-		id = _id;
-		resourceId = _res;
-		servers = new ArrayList<Server>();
+		clientId = _cId;
+		resourceId = -1;
 	}
 	
-	public void connectServer(@Data(name = "server") Server server) {
-		if (!this.servers.contains(server)) {
-			this.servers.add(server);
-		}
-		logger.debug("Client {" + bipActor + "} CONNECT to server {" + server + "}");
-		System.out.println("Client {" + bipActor + "} CONNECT to server {" + server + "}");
+	public Client(int _cId, int _rID) {
+		// TODO Auto-generated constructor stub
+		clientId = _cId;
+		resourceId = _rID;
 	}
 	
-	public void downloadResource(@Data(name = "server") Server server, @Data(name = "resourceId") Integer resId) {
-		if (this.servers.contains(server)) {
-			this.servers.add(server);
-			resourceId = resId;
-			logger.debug("Client {" + bipActor + "} DOWNLOAD resource {" + resourceId + "} from server {" + server + "}.\n");
-		}
-		
+	@Transition(name = "download", source = "0", target = "1", guard = "canConnect")
+	public void download() {
+		logger.debug("Client{" + clientId + "}: is REQUESTING to download resource{" + resourceId + "} from server{" + serverId + "}.\n");
+		System.out.println("Client{" + clientId + "}: is requesting to download resource{" + resourceId + "} from server{" + serverId + "}");
 	}
 	
-	public void logout(@Data(name = "server") Server server) {
-		if (this.servers.contains(server)) {
-			
-		}
+	@Transition(name = "releash", source = "1", target = "0")
+	public void releash() {
+		logger.debug("Client{" + clientId + "}: RELEASHES resource{" + resourceId + "} from server{" + serverId + "}.\n");
+		System.out.println("Client{" + clientId + "}: RELEASHES resource{" + resourceId + "} from server{" + serverId + "}");
 	}
-	@Override
-	public void setBIPActor(BIPActor actor) {
-		// TODO Auto-generated method stub
-		
+	
+	@Data(name = "clientId", accessTypePort = AccessType.any)
+	public int clientID() {
+		return clientId;
+	}
+	
+	@Data(name = "clientResourceId", accessTypePort = AccessType.any)
+	public int getResourceId() {
+		return resourceId;
+	}
+	
+	@Guard(name = "canConnect")
+	public boolean canConnect(@Data(name = "serverId") Integer sId) {
+		serverId = sId;
+		return (serverId >= 0);
 	}
 
 }

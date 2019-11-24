@@ -11,8 +11,7 @@ import org.javabip.api.DataOut.AccessType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Ports({ //@Port(name = "start", type = PortType.enforceable),
-	@Port(name = "run", type = PortType.enforceable),
+@Ports({ @Port(name = "run", type = PortType.enforceable),
 	@Port(name = "move", type = PortType.enforceable),
 	@Port(name = "close", type = PortType.enforceable)})
 @ComponentType(initial = "0", name = "org.bip.spec.monitor.Server")
@@ -34,7 +33,7 @@ public class Server {
 		rID = _rId;
 	}
 	
-	@Transition(name = "run", source = "0", target = "0")
+	@Transition(name = "run", source = "0", target = "0", guard = "canRun")
 	public void run() {
 		logger.debug("Server{" + sID + "}: is RUNNING.\n");
 		System.out.println("Server{" + sID + "}: is RUNNING.\n");
@@ -50,6 +49,8 @@ public class Server {
 	public void close() {
 		logger.debug("Server{" + sID + "}: is CLOSED.\n");
 		System.out.println("Server{" + sID + "}: is CLOSED.\n");
+		rID = -1;
+		sID = -1;
 	}
 	
 	@Data(name = "rID", accessTypePort = AccessType.any)
@@ -62,8 +63,14 @@ public class Server {
 		return sID;
 	}
 	
+	@Guard(name = "canRun")
+	public boolean canRun() {
+		return (sID >= 0);
+	}
+	
 	@Guard(name = "canMove")
 	public boolean canMove(@Data(name = "newServerId") Integer newSId) {
-		return (newSId >= 0);
+		//if (sID != newSId && newSId >= 0)
+		return (sID != newSId && newSId >= 0 && rID >= 0);
 	}
 }

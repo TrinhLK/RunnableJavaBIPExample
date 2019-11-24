@@ -27,18 +27,18 @@ public class ClientServerTest {
 
 		//HanoiOptimalMonitor hanoiMonitor;
 		try {
-//			Resource rs = new Resource(1);
-//			Client client = new Client(11, 1);
-//			Server serverA = new ServerA(21, rs);
-//			Server serverB = new ServerA(22);
-//			Monitor monitor = new Monitor();
-//			//NewServer nServer = new NewServer(22);
-//			
-//					
-//			BIPActor actor1 = engine.register(client, "client", true);
-//			BIPActor actor2 = engine.register(serverA, "serverA", true);
-//			BIPActor actor3 = engine.register(serverB, "ServerB", true);
-//			BIPActor actor4 = engine.register(monitor, "monitor", true);
+			
+			Client client = new Client(11, 1);
+			Server serverA = new ServerA(21, 1);
+			Server serverB = new ServerB(22);
+			Monitor monitor = new Monitor(21,22);
+			//NewServer nServer = new NewServer(22);
+			
+					
+			BIPActor actor1 = engine.register(client, "client", true);
+			BIPActor actor2 = engine.register(serverA, "serverA", true);
+			BIPActor actor3 = engine.register(serverB, "ServerB", true);
+			BIPActor actor4 = engine.register(monitor, "monitor", true);
 			
 			engine.specifyGlue(bipGlue);
 			engine.start();

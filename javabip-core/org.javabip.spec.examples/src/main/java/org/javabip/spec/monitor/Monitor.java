@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 @ComponentType(initial = "0", name = "org.bip.spec.monitor.Monitor")
 public class Monitor {
 
-	Logger logger = LoggerFactory.getLogger(Server.class);
+	Logger logger = LoggerFactory.getLogger(Monitor.class);
 	private int resourceId;
 	private int serverId;
 	private int clientId;
@@ -45,14 +45,14 @@ public class Monitor {
 	}
 	
 	@Transition(name = "downFinish", source = "1", target = "0")
-	public void downFinish(@Data(name = "clientId") Integer cId) {
-		clientId = cId;
+	public void downFinish() {
 		logger.debug("Monitor: DOWNLOADING is finished.\n");
 		System.out.println("Monitor: DOWNLOADING is finished");
 	}
 	
-	@Transition(name = "moveReq", source = "0", target = "2")
-	public void moveRequest() {
+	@Transition(name = "moveReq", source = "0", target = "2", guard = "canMove")
+	public void moveRequest(@Data(name = "rID") Integer srID) {
+		resourceId = srID;
 		logger.debug("Monitor: Server{" + serverId + "}: is MOVING resource{" + resourceId + "} to server{" + newServerId + "}.\n");
 		System.out.println("Monitor: Server{" + serverId + "}: is MOVING resource{" + resourceId + "} to server{" + newServerId + "}");
 	}
@@ -70,6 +70,11 @@ public class Monitor {
 		return (crID == srID);
 	}
 	
+	@Guard(name = "canMove")
+	public boolean canMove(@Data(name = "rID") Integer srID) {
+		resourceId = srID;
+		return (resourceId >= 0);
+	}
 	@Data(name = "serverId", accessTypePort = AccessType.any)
 	public int getServerId() {
 		return serverId;

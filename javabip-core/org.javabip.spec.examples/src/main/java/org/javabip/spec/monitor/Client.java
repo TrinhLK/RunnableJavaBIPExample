@@ -14,8 +14,7 @@ import org.javabip.api.PortType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Ports({ //@Port(name = "request", type = PortType.enforceable),
-	@Port(name = "download", type = PortType.enforceable),
+@Ports({ @Port(name = "download", type = PortType.enforceable),
 	@Port(name = "releash", type = PortType.enforceable)})
 @ComponentType(initial = "0", name = "org.bip.spec.monitor.Client")
 public class Client {
@@ -39,7 +38,7 @@ public class Client {
 	@Transition(name = "download", source = "0", target = "1", guard = "canConnect")
 	public void download() {
 		logger.debug("Client{" + clientId + "}: is REQUESTING to download resource{" + resourceId + "} from server{" + serverId + "}.\n");
-		System.out.println("Client{" + clientId + "}: is requesting to download resource{" + resourceId + "} from server{" + serverId + "}");
+		System.out.println("Client{" + clientId + "}: is REQUESTING to download resource{" + resourceId + "} from server{" + serverId + "}");
 	}
 	
 	@Transition(name = "releash", source = "1", target = "0")
@@ -64,8 +63,4 @@ public class Client {
 		return (serverId >= 0);
 	}
 	
-//	@Guard(name = "canReleash")
-//	public boolean canReleash(@Data(name = "finishedDownload") Boolean finished) {
-//		return finished;
-//	}
 }
