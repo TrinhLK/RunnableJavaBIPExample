@@ -40,27 +40,27 @@ public class Monitor {
 	@Transition(name = "downReq", source = "0", target = "1", guard = "canDownload")
 	public void downRequest() {
 		
-		logger.debug("Monitor: Client{" + clientId + "} is DOWNLOADING resource{" + resourceId + "} from server{" + serverId.getServerId() + "}.\n");
-		System.out.println("Monitor: Client{" + clientId + "}: is DOWNLOADING resource{" + resourceId + "} from server{" + serverId.getServerId() + "}");
+		logger.info("Monitor: Client{" + clientId + "} is DOWNLOADING resource{" + resourceId + "} from server{" + serverId.getServerId() + "}.\n");
+		//System.out.println("Monitor: Client{" + clientId + "}: is DOWNLOADING resource{" + resourceId + "} from server{" + serverId.getServerId() + "}");
 	}
 	
 	@Transition(name = "downFinish", source = "1", target = "0")
 	public void downFinish() {
-		logger.debug("Monitor: DOWNLOADING is finished.\n");
-		System.out.println("Monitor: DOWNLOADING is finished");
+		logger.info("Monitor: DOWNLOADING is finished.\n");
+		//System.out.println("Monitor: DOWNLOADING is finished");
 	}
 	
 	@Transition(name = "moveReq", source = "0", target = "2", guard = "canMove")
 	public void moveRequest() {
 		//resourceId = srID;
-		logger.debug("Monitor: Server{" + serverId.getServerId() + "}: is MOVING resource{" + resourceId + "} to server{" + newServerId.getServerId() + "}.\n");
-		System.out.println("Monitor: Server{" + serverId.getServerId() + "}: is MOVING resource{" + resourceId + "} to server{" + newServerId.getServerId() + "}");
+		logger.info("Monitor: Server{" + serverId.getServerId() + "}: is MOVING resource{" + resourceId + "} to server{" + newServerId.getServerId() + "}.\n");
+		//System.out.println("Monitor: Server{" + serverId.getServerId() + "}: is MOVING resource{" + resourceId + "} to server{" + newServerId.getServerId() + "}");
 	}
 	
 	@Transition(name = "moveFinish", source = "2", target = "0")
 	public void moveFinish() {
-		logger.debug("Monitor: MOVING is finished.\n");
-		System.out.println("Monitor:  MOVING is finished");
+		logger.info("Monitor: MOVING is finished.\n");
+		//System.out.println("Monitor:  MOVING is finished");
 		serverId = newServerId;
 	}
 	

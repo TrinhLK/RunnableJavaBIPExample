@@ -37,14 +37,14 @@ public class Client {
 	
 	@Transition(name = "download", source = "0", target = "1", guard = "canConnect")
 	public void download() {
-		logger.debug("Client{" + clientId + "}: is REQUESTING to download resource{" + resourceId + "} from server{" + serverId + "}.\n");
-		System.out.println("Client{" + clientId + "}: is REQUESTING to download resource{" + resourceId + "} from server{" + serverId + "}");
+		logger.info("Client{" + clientId + "}: is REQUESTING to download resource{" + resourceId + "} from server{" + serverId + "}.\n");
+		//System.out.println("Client{" + clientId + "}: is REQUESTING to download resource{" + resourceId + "} from server{" + serverId + "}");
 	}
 	
 	@Transition(name = "releash", source = "1", target = "0")
 	public void releash() {
-		logger.debug("Client{" + clientId + "}: RELEASHES resource{" + resourceId + "} from server{" + serverId + "}.\n");
-		System.out.println("Client{" + clientId + "}: RELEASHES resource{" + resourceId + "} from server{" + serverId + "}\n");
+		logger.info("Client{" + clientId + "}: RELEASHES resource{" + resourceId + "} from server{" + serverId + "}.\n");
+		//System.out.println("Client{" + clientId + "}: RELEASHES resource{" + resourceId + "} from server{" + serverId + "}\n");
 	}
 	
 	@Data(name = "clientId", accessTypePort = AccessType.any)

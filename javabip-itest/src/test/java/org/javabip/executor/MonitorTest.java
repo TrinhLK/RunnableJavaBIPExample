@@ -1,5 +1,7 @@
 package org.javabip.executor;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.javabip.api.BIPActor;
 import org.javabip.api.BIPEngine;
 import org.javabip.api.BIPGlue;
@@ -11,7 +13,7 @@ import akka.actor.ActorSystem;
 public class MonitorTest {
 	private ActorSystem system;
     private EngineFactory engineFactory;
-
+    
     private void initialize() {
         system = ActorSystem.create("MySystem");
         engineFactory = new EngineFactory(system);

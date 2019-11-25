@@ -35,20 +35,20 @@ public class Server {
 	
 	@Transition(name = "run", source = "0", target = "0", guard = "canRun")
 	public void run() {
-		logger.debug("Server{" + sID + "}: is RUNNING.\n");
-		System.out.println("Server{" + sID + "}: is RUNNING.\n");
+		logger.info("Server{" + sID + "}: is RUNNING.\n");
+		//System.out.println("Server{" + sID + "}: is RUNNING.\n");
 	}
 	
 	@Transition(name = "move", source = "0", target = "1", guard = "canMove")
 	public void move(@Data(name = "newServerId") Integer newSId) {
-		logger.debug("Server{" + sID + "}: is REQUESTING to move resource{" + rID + "} to server{" + newSId + "}.\n");
-		System.out.println("Server{" + sID + "}: is REQUESTING to move resource{" + rID + "} to server{" + newSId + "}");
+		logger.info("Server{" + sID + "}: is REQUESTING to move resource{" + rID + "} to server{" + newSId + "}.\n");
+		//System.out.println("Server{" + sID + "}: is REQUESTING to move resource{" + rID + "} to server{" + newSId + "}");
 	}
 	
 	@Transition(name = "close", source = "1", target = "0")
 	public void close() {
-		logger.debug("Server{" + sID + "}: is CLOSED.\n");
-		System.out.println("Server{" + sID + "}: is CLOSED.\n");
+		logger.info("Server{" + sID + "}: is CLOSED.\n");
+		//System.out.println("Server{" + sID + "}: is CLOSED.\n");
 		rID = -1;
 		sID = -1;
 	}
