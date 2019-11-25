@@ -28,7 +28,7 @@ public class MonitorTest {
     	Server serverA = new Server(11, 1);
 		Server serverB = new Server(12);
 		Client client = new Client(21, 1);
-		Monitor monitor = new Monitor(11, 12);	
+		Monitor monitor = new Monitor(serverA, serverB);	
 		
 		final BIPActor executor1 = engine.register(serverA, "11", true);
 		final BIPActor executor2 = engine.register(serverB, "12", true);

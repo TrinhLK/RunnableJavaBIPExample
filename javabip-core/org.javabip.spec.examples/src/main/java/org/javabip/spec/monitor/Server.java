@@ -64,8 +64,8 @@ public class Server {
 	}
 	
 	@Guard(name = "canRun")
-	public boolean canRun() {
-		return (sID >= 0);
+	public boolean canRun(@Data(name = "resourceId") Integer resourceId) {
+		return (sID >= 0 && resourceId == rID && rID >= 0);
 	}
 	
 	@Guard(name = "canMove")

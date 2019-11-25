@@ -20,17 +20,17 @@ public class Monitor {
 
 	Logger logger = LoggerFactory.getLogger(Monitor.class);
 	private int resourceId;
-	private int serverId;
+	private Server serverId;
 	private int clientId;
-	private int newServerId;
+	private Server newServerId;
 	
-	public Monitor(int _sID, int _nSID) {
+	public Monitor(Server _sID, Server _nSID) {
 		// TODO Auto-generated constructor stub
 		serverId = _sID;
 		newServerId = _nSID;
 	}
 	
-	public Monitor(int _sID, int _nSID, int _cID) {
+	public Monitor(Server _sID, Server _nSID, int _cID) {
 		// TODO Auto-generated constructor stub
 		serverId = _sID;
 		newServerId = _nSID;
@@ -38,10 +38,10 @@ public class Monitor {
 	}
 	
 	@Transition(name = "downReq", source = "0", target = "1", guard = "canDownload")
-	public void downRequest(@Data(name = "clientId") Integer cId) {
-		clientId = cId;
-		logger.debug("Monitor: Client{" + clientId + "} is DOWNLOADING resource{" + resourceId + "} from server{" + serverId + "}.\n");
-		System.out.println("Monitor: Client{" + clientId + "}: is DOWNLOADING resource{" + resourceId + "} from server{" + serverId + "}");
+	public void downRequest() {
+		
+		logger.debug("Monitor: Client{" + clientId + "} is DOWNLOADING resource{" + resourceId + "} from server{" + serverId.getServerId() + "}.\n");
+		System.out.println("Monitor: Client{" + clientId + "}: is DOWNLOADING resource{" + resourceId + "} from server{" + serverId.getServerId() + "}");
 	}
 	
 	@Transition(name = "downFinish", source = "1", target = "0")
@@ -51,10 +51,10 @@ public class Monitor {
 	}
 	
 	@Transition(name = "moveReq", source = "0", target = "2", guard = "canMove")
-	public void moveRequest(@Data(name = "rID") Integer srID) {
-		resourceId = srID;
-		logger.debug("Monitor: Server{" + serverId + "}: is MOVING resource{" + resourceId + "} to server{" + newServerId + "}.\n");
-		System.out.println("Monitor: Server{" + serverId + "}: is MOVING resource{" + resourceId + "} to server{" + newServerId + "}");
+	public void moveRequest() {
+		//resourceId = srID;
+		logger.debug("Monitor: Server{" + serverId.getServerId() + "}: is MOVING resource{" + resourceId + "} to server{" + newServerId.getServerId() + "}.\n");
+		System.out.println("Monitor: Server{" + serverId.getServerId() + "}: is MOVING resource{" + resourceId + "} to server{" + newServerId.getServerId() + "}");
 	}
 	
 	@Transition(name = "moveFinish", source = "2", target = "0")
@@ -65,24 +65,36 @@ public class Monitor {
 	}
 	
 	@Guard(name = "canDownload")
-	public boolean canDownload(@Data(name = "clientResourceId") Integer crID, @Data(name = "rID") Integer srID) {
-		resourceId = srID;
-		return (crID == srID);
+	public boolean canDownload(@Data(name = "clientResourceId") Integer crID, @Data(name = "clientId") Integer cId) {
+		resourceId = crID;
+		clientId = cId;
+//		if (crID == serverId.getResourceId()) {
+//			System.out.println("Monitor Guard: you can down");
+//		}else {
+//			System.out.println("Monitor Guard: you CANNOT down");
+//		}
+		//return (crID == srID);
+		return (crID == serverId.getResourceId());
 	}
 	
 	@Guard(name = "canMove")
-	public boolean canMove(@Data(name = "rID") Integer srID) {
-		resourceId = srID;
-		return (resourceId >= 0);
+	public boolean canMove() {
+//		if (serverId.getResourceId() >= 0 && serverId != newServerId) {
+//			System.out.println("Monitor Guard: you can move from server{" + serverId.getServerId() + "} to {" + newServerId.getServerId() + "}.");
+//		}else {
+//			System.out.println("Monitor Guard: you CANNOT move from server{" + serverId.getServerId() + "} to {" + newServerId.getServerId() + "}.");
+//		}
+		
+		return (serverId.getResourceId() >= 0 && serverId != newServerId);
 	}
 	@Data(name = "serverId", accessTypePort = AccessType.any)
 	public int getServerId() {
-		return serverId;
+		return serverId.getServerId();
 	}
 	
 	@Data(name = "newServerId", accessTypePort = AccessType.any)
 	public int getNewServerId() {
-		return newServerId;
+		return newServerId.getServerId();
 	}
 	
 	@Data(name = "resourceId", accessTypePort = AccessType.any)

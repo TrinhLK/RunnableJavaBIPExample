@@ -44,7 +44,7 @@ public class Client {
 	@Transition(name = "releash", source = "1", target = "0")
 	public void releash() {
 		logger.debug("Client{" + clientId + "}: RELEASHES resource{" + resourceId + "} from server{" + serverId + "}.\n");
-		System.out.println("Client{" + clientId + "}: RELEASHES resource{" + resourceId + "} from server{" + serverId + "}");
+		System.out.println("Client{" + clientId + "}: RELEASHES resource{" + resourceId + "} from server{" + serverId + "}\n");
 	}
 	
 	@Data(name = "clientId", accessTypePort = AccessType.any)
