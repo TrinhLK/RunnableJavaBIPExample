@@ -90,7 +90,6 @@
  			<groupId>com.typesafe.akka</groupId>
         <artifactId>akka-osgi_${scala.binary.version}</artifactId>
     	</dependency>
-
 	</dependencies>
 
 	<reporting>
