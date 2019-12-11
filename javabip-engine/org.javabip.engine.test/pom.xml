@@ -46,6 +46,12 @@
 	   <version>0.1.0-SNAPSHOT</version>
 	   <groupId>org.javabip</groupId>
 	</dependency>
+	
+	<dependency>
+	   <artifactId>org.javabip.engine.core</artifactId>
+	   <version>0.1.0-SNAPSHOT</version>
+	   <groupId>org.javabip</groupId>
+	</dependency>
   </dependencies>
   
   <build>
